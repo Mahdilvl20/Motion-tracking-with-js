@@ -3,7 +3,16 @@ import {useFrame, useThree} from "@react-three/fiber";
 import * as THREE from "three";
 import {sampleText} from "../utils/textSampler.js";
 import {lerp} from "../utils/math.js";
+import {useHandTracking} from "../hooks/useHandTracking.js";
 const Particles = () => {
+    const handRef=useHandTracking();
+    useEffect(() => {
+        const interval = setInterval(() => {
+            console.log("وضعیت دست‌ها:", handRef.current);
+        }, 1000); // 1000 میلی‌ثانیه = ۱ ثانیه
+
+        return () => clearInterval(interval); // پاکسازی وقتی کامپوننت بسته شد
+    }, []);
     const {viewport} =useThree();
     const count=5000;
     const [particlesData,setParticlesData] = useState(null);
@@ -43,7 +52,6 @@ const Particles = () => {
         }
         setParticlesData({position:posArray,targets:targetArray,count:count});
     },[])
-
     useFrame((state)=>{
         if (!particlesData || !pointsRef.current) return;
         const mouseX=(state.pointer.x * viewport.width)/2;
