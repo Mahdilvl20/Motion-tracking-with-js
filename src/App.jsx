@@ -4,11 +4,16 @@ import './index.css'
 function App() {
 
   return (
-    <div style={{width:'100vw', height:'100vh',background:'black'}}>
-        <Canvas camera={{position:[0,0,10],fov:50}}>
-            <Particles/>
-        </Canvas>
-    </div>
+      <div style={{ width: '100vw', height: '100vh', position: 'relative', zIndex: 1 }}>
+
+          <Canvas
+              camera={{ position: [0, 0, 50], fov: 75 }}
+              gl={{ alpha: true }}
+          >
+              <Particles />
+          </Canvas>
+
+      </div>
   )
 }
 
